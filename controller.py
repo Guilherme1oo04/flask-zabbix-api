@@ -56,3 +56,22 @@ def problems(z_api):
         json_problems.append({"host": host, "problem": problem["name"], "severity": problem["severity"], "timestamp": formated_data, "opdata": problem["opdata"]})
 
     return json_problems
+
+def availability(z_api):
+
+    key = f"zabbix[host,snmp,available]"
+
+    hosts = ["mpls-saomiguel-101", "mpls-coroneljoaopessoa-101"]
+
+    hosts_availability = []
+
+    for x in hosts:
+        hostInfo = z_api.host.get(filter={"name": x})[0]
+        hostId = hostInfo["hostid"]
+
+        item_availability = z_api.item.get(hostids=hostId, search={"key_": key}, output="itemid")[0]
+        host_availability = z_api.history.get(output="extend", itemids=item_availability["itemid"], sortfield="clock", sortorder="DESC", limit=1)
+
+        hosts_availability.append({x: host_availability[0]})
+
+    return hosts_availability

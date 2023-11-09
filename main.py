@@ -33,4 +33,9 @@ def trafegosInterfacesIn(host, top):
 
     return controller.trafegosInterfaces(z_api, host, "in", top)
 
+@app.route("/availability")
+def availability():
+
+    return controller.availability(z_api)
+
 app.run(port=3333)
