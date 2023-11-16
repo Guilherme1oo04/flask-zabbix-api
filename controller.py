@@ -33,9 +33,8 @@ def trafegosInterfaces(z_api, host, out_X_in, top):
 
         for trafego in trafegos:
             date_trafego = datetime.datetime.fromtimestamp(int(trafego["clock"]))
-            date_trafego = date_trafego.strftime("%d/%m/%Y %H:%M:%S")
+            date_trafego = date_trafego.strftime("%Y-%m-%d %H:%M:%S")
             trafegosNew.append({"clock": date_trafego, "value": int(trafego["value"]), "interface": nome_item})
-
 
         trafegos_history_top.update({nome_item: trafegosNew})
 
